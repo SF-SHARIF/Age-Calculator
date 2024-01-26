@@ -61,7 +61,7 @@ small span {
 .container {
     border: 1px solid;
     width: 98vw;
-    margin: 5% auto;
+    margin: auto;
     background-color: #d9e4ff;
     padding: 10px;
 }
