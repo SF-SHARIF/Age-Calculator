@@ -31,7 +31,7 @@ BTN_calculation.addEventListener('click', function () {
 })
 
 function Your_Exact_Date_Of_Birth() {
-    
+
     let your_dob = new Date(inputDOB.value)
 
     let getDateArr = your_dob.toLocaleDateString('en-GB',
@@ -59,11 +59,11 @@ function Your_Exact_Date_Of_Birth() {
 
 function Your_Age_Is() {
     let todayValue = today;
-    let your_dob = new Date(inputDOB.value);
+    let your_dob = new Date(inputDOB.value);    
 
-    let getYear = today.getFullYear() - your_dob.getFullYear();
-    let getMonth = todayValue.getMonth() - your_dob.getMonth();
-    let getDeys = today.getDate() - your_dob.getDate();
+    let getYear = Math.abs(today.getFullYear() - your_dob.getFullYear());
+    let getMonth = Math.abs(todayValue.getMonth() - your_dob.getMonth());
+    let getDeys = Math.abs(today.getDate() - your_dob.getDate());
 
     //------------------- apply data-------------------
     // year
@@ -94,7 +94,7 @@ function You_are_Alive() {
     // week , days , yours , minutes , seconds
     const calcu = (today_date, Date_of_Birth, x) => (today_date - Date_of_Birth) / x;
     // month
-    const calcu_month = (Date_of_Birth, today_date) => (today_date.getFullYear() - Date_of_Birth.getFullYear()) * (12 + today_date.getMonth() - Date_of_Birth.getMonth());
+    const calcu_month = (Date_of_Birth, today_date) => (today_date.getFullYear() - Date_of_Birth.getFullYear()) * 12 + today_date.getMonth() - Date_of_Birth.getMonth();
 
     let year_total = today.getFullYear() - your_dob.getFullYear();
     let month_total = calcu_month(your_dob, todayValue);
@@ -157,7 +157,7 @@ function next_birthday_function() {
     next_birthday.firstElementChild.innerHTML = `
     <span class="num-last">${last_Days}</span> days after your birthday <span><i class="fa-solid fa-cake-candles"></i></span> and you will be <span class="num-last">${age + 1} !!
     `
-    
+
 }
 
 
