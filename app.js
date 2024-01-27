@@ -57,28 +57,10 @@ function Your_Exact_Date_Of_Birth() {
 
 }
 
-// calculation is wrong this function
-// function Your_Age_Is00❌() {
-//     let todayValue = today;
-//     let your_dob = new Date(inputDOB.value);    
-
-//     let getYear = Math.abs(today.getFullYear() - your_dob.getFullYear());
-//     let getMonth = Math.abs(todayValue.getMonth() - your_dob.getMonth());
-//     let getDeys = Math.abs(today.getDate() - your_dob.getDate());
-
-//     //------------------- apply data-------------------
-//     // year
-//     age_content.lastElementChild.lastElementChild.firstElementChild.innerText = `${getYear} Years`;
-//     // month
-//     age_content.lastElementChild.lastElementChild.firstElementChild.nextElementSibling.innerText = `${getMonth} Months`;
-//     // days
-//     age_content.lastElementChild.lastElementChild.firstElementChild.nextElementSibling.nextElementSibling.innerText = `${getDeys} Days`
-// }
-
-function Your_Age_Is(){
-    let your_dob = new Date(inputDOB.value); 
+function Your_Age_Is() {
+    let your_dob = new Date(inputDOB.value);
     let d1 = your_dob.getDate();
-    let m1 = your_dob.getMonth() +  1;
+    let m1 = your_dob.getMonth() + 1;
     let y1 = your_dob.getFullYear();
 
     let todayValue = today;
@@ -86,38 +68,38 @@ function Your_Age_Is(){
     let m2 = todayValue.getMonth() + 1;
     let y2 = todayValue.getFullYear();
 
-    let d3,m3,y3;
+    let d3, m3, y3;
     y3 = y2 - y1;
 
-    if(m2 >= m1){
+    if (m2 >= m1) {
         m3 = m2 - m1;
 
-    }else{
+    } else {
 
         y3--;
         m3 = 12 + m2 - m1;
     }
 
-    if(d2 >= d1){
+    if (d2 >= d1) {
         d3 = d2 - d1;
-    }else{
+    } else {
         m3--;
         d3 = getDaysInMonth(y1, m1) + d2 - d1;
     }
-    if(m3<0){
+    if (m3 < 0) {
         m3 = 11;
         y3--;
     }
-      //------------------- apply data-------------------
+    //------------------- apply data-------------------
     // year
     age_content.lastElementChild.lastElementChild.firstElementChild.innerText = `${y3} Years`;
     // month
     age_content.lastElementChild.lastElementChild.firstElementChild.nextElementSibling.innerText = `${m3} Months`;
     // days
     age_content.lastElementChild.lastElementChild.firstElementChild.nextElementSibling.nextElementSibling.innerText = `${d3} Days`
-    
+
 }
-function getDaysInMonth(year, month){
+function getDaysInMonth(year, month) {
     return new Date(year, month, 0).getDate();
 }
 
@@ -126,8 +108,7 @@ function getAge(dateString) {
     var birthDate = new Date(dateString);
     var age = today.getFullYear() - birthDate.getFullYear();
     var m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
-    {
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
         age--;
     }
     return age;
@@ -197,27 +178,21 @@ function You_are_Alive() {
 
 }
 
+
 function next_birthday_function() {
     let todayValue = today;
     let your_dob = new Date(inputDOB.value);
 
-    let upcoming_date = new Date(todayValue.getFullYear(), your_dob.getMonth(), your_dob.getDate())
+    let upcomingBday = new Date(todayValue.getFullYear(), your_dob.getMonth(), your_dob.getDate());
 
-    if (today > upcoming_date) {
-        upcoming_date.setFullYear(today.getFullYear() + 1)
-        console.log(upcoming_date.setFullYear(today.getFullYear() + 1));
-        console.log('ok');
+    if (todayValue > upcomingBday) {
+        upcomingBday.setFullYear(todayValue.getFullYear() + 1);
     }
 
-    let last_Days = Math.round((upcoming_date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
-    let age = today.getFullYear() - your_dob.getFullYear();
+    var one_day = 24 * 60 * 60 * 1000;
 
-    // apply data
-    next_birthday.firstElementChild.innerHTML = `
-    <span class="num-last">${last_Days}</span> days after your birthday <span><i class="fa-solid fa-cake-candles"></i></span> and you will be <span class="num-last">${age + 1} !!
-    `
+    let daysLeft = Math.ceil((upcomingBday.getTime() - todayValue.getTime()) / (one_day));
+
+    next_birthday.firstElementChild.innerHTML = ` <span class="num-last">${daysLeft}</span> days after your birthday <span><i class="fa-solid fa-cake-candles"></i></span> `
 
 }
-
-
-
