@@ -57,21 +57,80 @@ function Your_Exact_Date_Of_Birth() {
 
 }
 
-function Your_Age_Is() {
+// calculation is wrong this function
+// function Your_Age_Is00❌() {
+//     let todayValue = today;
+//     let your_dob = new Date(inputDOB.value);    
+
+//     let getYear = Math.abs(today.getFullYear() - your_dob.getFullYear());
+//     let getMonth = Math.abs(todayValue.getMonth() - your_dob.getMonth());
+//     let getDeys = Math.abs(today.getDate() - your_dob.getDate());
+
+//     //------------------- apply data-------------------
+//     // year
+//     age_content.lastElementChild.lastElementChild.firstElementChild.innerText = `${getYear} Years`;
+//     // month
+//     age_content.lastElementChild.lastElementChild.firstElementChild.nextElementSibling.innerText = `${getMonth} Months`;
+//     // days
+//     age_content.lastElementChild.lastElementChild.firstElementChild.nextElementSibling.nextElementSibling.innerText = `${getDeys} Days`
+// }
+
+function Your_Age_Is(){
+    let your_dob = new Date(inputDOB.value); 
+    let d1 = your_dob.getDate();
+    let m1 = your_dob.getMonth() +  1;
+    let y1 = your_dob.getFullYear();
+
     let todayValue = today;
-    let your_dob = new Date(inputDOB.value);    
+    let d2 = todayValue.getDate();
+    let m2 = todayValue.getMonth() + 1;
+    let y2 = todayValue.getFullYear();
 
-    let getYear = Math.abs(today.getFullYear() - your_dob.getFullYear());
-    let getMonth = Math.abs(todayValue.getMonth() - your_dob.getMonth());
-    let getDeys = Math.abs(today.getDate() - your_dob.getDate());
+    let d3,m3,y3;
+    y3 = y2 - y1;
 
-    //------------------- apply data-------------------
+    if(m2 >= m1){
+        m3 = m2 - m1;
+
+    }else{
+
+        y3--;
+        m3 = 12 + m2 - m1;
+    }
+
+    if(d2 >= d1){
+        d3 = d2 - d1;
+    }else{
+        m3--;
+        d3 = getDaysInMonth(y1, m1) + d2 - d1;
+    }
+    if(m3<0){
+        m3 = 11;
+        y3--;
+    }
+      //------------------- apply data-------------------
     // year
-    age_content.lastElementChild.lastElementChild.firstElementChild.innerText = `${getYear} Years`;
+    age_content.lastElementChild.lastElementChild.firstElementChild.innerText = `${y3} Years`;
     // month
-    age_content.lastElementChild.lastElementChild.firstElementChild.nextElementSibling.innerText = `${getMonth} Months`;
+    age_content.lastElementChild.lastElementChild.firstElementChild.nextElementSibling.innerText = `${m3} Months`;
     // days
-    age_content.lastElementChild.lastElementChild.firstElementChild.nextElementSibling.nextElementSibling.innerText = `${getDeys} Days`
+    age_content.lastElementChild.lastElementChild.firstElementChild.nextElementSibling.nextElementSibling.innerText = `${d3} Days`
+    
+}
+function getDaysInMonth(year, month){
+    return new Date(year, month, 0).getDate();
+}
+
+function getAge(dateString) {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+    {
+        age--;
+    }
+    return age;
 }
 
 function You_are_Alive() {
@@ -96,7 +155,7 @@ function You_are_Alive() {
     // month
     const calcu_month = (Date_of_Birth, today_date) => (today_date.getFullYear() - Date_of_Birth.getFullYear()) * 12 + today_date.getMonth() - Date_of_Birth.getMonth();
 
-    let year_total = today.getFullYear() - your_dob.getFullYear();
+    let year_total = getAge(your_dob)
     let month_total = calcu_month(your_dob, todayValue);
     let week_total = Math.floor(calcu(todayValue, your_dob, oneWeek));
     let days_total = calcu(todayValue, your_dob, oneDay);
